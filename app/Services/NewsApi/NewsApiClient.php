@@ -13,17 +13,23 @@ class NewsApiClient extends AbstractNewsClient
 
     protected function getBaseUrl(): string
     {
-        return 'https://newsapi.org/v2/everything';
+        return config('services.newsapi.uri');
     }
 
     protected function buildRequestParams(array $params): array
     {
-        return array_merge([
+        $defaultParams = [
             'apiKey' => $this->apiKey,
             'language' => 'en',
             'pageSize' => 100,
             'sortBy' => 'publishedAt',
-        ], $params);
+        ];
+
+        if (empty($params['q']) && empty($params['sources']) && empty($params['domains'])) {
+            $defaultParams['domains'] = 'techcrunch.com,bbc.com,cnn.com,reuters.com';
+        }
+
+        return array_merge($defaultParams, $params);
     }
 
     protected function transformResponse(array $data): array

@@ -36,16 +36,19 @@ return [
     ],
 
     'newsapi' => [
+        'uri' => env('NEWS_API_URI', 'https://newsapi.org/v2/everything'),
         'key' => env('NEWS_API_KEY'),
         'timeout' => env('NEWS_API_TIMEOUT', 30),
     ],
 
     'gnews' => [
+        'uri' => env('GNEWS_API_URI', 'https://gnews.io/api/v4/search'),
         'key' => env('GNEWS_API_KEY'),
         'timeout' => env('GNEWS_API_TIMEOUT', 30),
     ],
 
     'thenewsapi' => [
+        'uri' => env('THE_NEWS_API_URI', 'https://api.thenewsapi.com/v1/news/all'),
         'key' => env('THE_NEWS_API_KEY'),
         'timeout' => env('THE_NEWS_API_TIMEOUT', 30),
     ],

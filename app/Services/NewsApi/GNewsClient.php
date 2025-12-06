@@ -13,16 +13,22 @@ class GNewsClient extends AbstractNewsClient
 
     protected function getBaseUrl(): string
     {
-        return 'https://gnews.io/api/v4/search';
+        return config('services.gnews.uri');
     }
 
     protected function buildRequestParams(array $params): array
     {
-        return array_merge([
+        $defaultParams = [
             'apikey' => $this->apiKey,
             'lang' => 'en',
             'max' => 100,
-        ], $params);
+        ];
+
+        if (empty($params['q'])) {
+            $defaultParams['q'] = 'technology OR business OR world news';
+        }
+
+        return array_merge($defaultParams, $params);
     }
 
     protected function transformResponse(array $data): array
