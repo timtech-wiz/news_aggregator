@@ -53,5 +53,4 @@ return [
         'timeout' => env('THE_NEWS_API_TIMEOUT', 30),
     ],
 
-
 ];

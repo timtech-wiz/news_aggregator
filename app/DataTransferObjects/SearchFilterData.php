@@ -7,7 +7,7 @@ class SearchFilterData
     /**
      * Create a new class instance.
      */
-       public function __construct(
+    public function __construct(
         public readonly ?string $query = null,
         public readonly ?string $source = null,
         public readonly ?string $category = null,

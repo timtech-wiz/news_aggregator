@@ -2,33 +2,20 @@
 
 namespace App\Providers;
 
+use App\Contracts\ArticleRepositoryInterface;
+use App\Contracts\FetchLoggerInterface;
+use App\Contracts\NewsAggregatorInterface;
+use App\Services\FetchLoggerService;
+use App\Services\NewsAggregatorService;
+use App\Services\NewsApi\GNewsClient;
+use App\Services\NewsApi\NewsApiClient;
+use App\Services\NewsApi\TheNewsApiClient;
 use Illuminate\Support\ServiceProvider;
-use App\Contracts\{
-    NewsApiClientInterface,
-    ArticleRepositoryInterface,
-    NewsAggregatorInterface,
-    FetchLoggerInterface
-};
-use App\Services\{
-    NewsAggregatorService,
-    FetchLoggerService
-};
-use App\Services\NewsApi\{
-    NewsApiClient,
-    GNewsClient,
-    TheNewsApiClient
-};
-use App\Repositories\ArticleRepository;
 
 class NewsServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        // Bind Repository
-        $this->app->singleton(
-            ArticleRepositoryInterface::class,
-            ArticleRepository::class
-        );
 
         // Bind Logger
         $this->app->singleton(

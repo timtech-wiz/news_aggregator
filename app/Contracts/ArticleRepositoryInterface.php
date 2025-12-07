@@ -2,13 +2,17 @@
 
 namespace App\Contracts;
 
-use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
 
 interface ArticleRepositoryInterface
 {
     public function create(array $data): ?object;
+
     public function findByUrl(string $url): ?object;
+
     public function existsByUrl(string $url): bool;
-    public function search(array $filters, int $perPage = 20): LengthAwarePaginator;
+
+    public function getQueryBuilder(): Builder;
+
     public function deleteOlderThan(int $days): int;
 }

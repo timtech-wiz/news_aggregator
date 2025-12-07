@@ -3,7 +3,6 @@
 namespace App\Services\NewsApi;
 
 use App\DataTransferObjects\ArticleData;
-use App\DTOs\ArticleDTO;
 
 class TheNewsApiClient extends AbstractNewsClient
 {

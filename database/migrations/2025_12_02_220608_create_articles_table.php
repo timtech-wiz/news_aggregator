@@ -10,7 +10,7 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-   public function up(): void
+    public function up(): void
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('author', 255)->nullable();
             $table->string('title', 500);
             $table->text('description')->nullable();
-            $table->text('url')->unique();
+            $table->string('url', 500)->unique();
             $table->text('url_to_image')->nullable();
             $table->text('content')->nullable();
             $table->timestamp('published_at')->index();
@@ -40,8 +40,8 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-     public function down(): void
-     {
+    public function down(): void
+    {
         Schema::dropIfExists('articles');
-     }
+    }
 };

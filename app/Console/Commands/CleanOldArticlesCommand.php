@@ -8,6 +8,7 @@ use Illuminate\Console\Command;
 class CleanOldArticlesCommand extends Command
 {
     protected $signature = 'news:clean {--days=30 : Days to keep articles}';
+
     protected $description = 'Remove articles older than specified days';
 
     public function handle(ArticleRepositoryInterface $repository): int

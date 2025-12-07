@@ -2,12 +2,10 @@
 
 namespace App\Services;
 
-use App\Contracts\{
-    NewsAggregatorInterface,
-    ArticleRepositoryInterface,
-    NewsApiClientInterface,
-    FetchLoggerInterface
-};
+use App\Contracts\ArticleRepositoryInterface;
+use App\Contracts\FetchLoggerInterface;
+use App\Contracts\NewsAggregatorInterface;
+use App\Contracts\NewsApiClientInterface;
 use Illuminate\Support\Facades\Log;
 
 class NewsAggregatorService implements NewsAggregatorInterface
@@ -28,7 +26,7 @@ class NewsAggregatorService implements NewsAggregatorInterface
         ];
 
         foreach ($this->newsClients as $client) {
-            if (!$client instanceof NewsApiClientInterface || !$client->isAvailable()) {
+            if (! $client instanceof NewsApiClientInterface || ! $client->isAvailable()) {
                 continue;
             }
 
@@ -73,7 +71,7 @@ class NewsAggregatorService implements NewsAggregatorInterface
         $duplicates = 0;
 
         foreach ($articles as $articleDTO) {
-            if (!$this->articleRepository->existsByUrl($articleDTO->url)) {
+            if (! $this->articleRepository->existsByUrl($articleDTO->url)) {
                 $this->articleRepository->create($articleDTO->toArray());
                 $saved++;
             } else {

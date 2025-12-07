@@ -22,7 +22,6 @@ class ArticleData
         public readonly ?array $metadata = null
     ) {}
 
-
     public function toArray(): array
     {
         return [

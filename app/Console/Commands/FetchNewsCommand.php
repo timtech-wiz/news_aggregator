@@ -43,7 +43,7 @@ class FetchNewsCommand extends Command
             ]
         );
 
-        if (!empty($results['sources'])) {
+        if (! empty($results['sources'])) {
             $this->newLine();
             $this->info('Source Breakdown:');
 

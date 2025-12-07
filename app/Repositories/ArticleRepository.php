@@ -4,24 +4,15 @@ namespace App\Repositories;
 
 use App\Contracts\ArticleRepositoryInterface;
 use App\Models\Article;
-use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
 
 class ArticleRepository implements ArticleRepositoryInterface
 {
-    /**
-     * Create a new class instance.
-     */
-    public function __construct(private Article $model)
-    {}
+    public function __construct(private Article $model) {}
 
-    public function create(array $data): ?object
+    public function create(array $data): object
     {
-        try {
-            return $this->model->create($data);
-        } catch (\Exception $e) {
-            report($e);
-            return null;
-        }
+        return $this->model->create($data);
     }
 
     public function findByUrl(string $url): ?object
@@ -34,35 +25,9 @@ class ArticleRepository implements ArticleRepositoryInterface
         return $this->model->where('url', $url)->exists();
     }
 
-    public function search(array $filters, int $perPage = 20): LengthAwarePaginator
+    public function getQueryBuilder(): Builder
     {
-        $query = $this->model->query();
-
-        if (!empty($filters['query'])) {
-            $query->search($filters['query']);
-        }
-
-        if (!empty($filters['source'])) {
-            $query->bySource($filters['source']);
-        }
-
-        if (!empty($filters['category'])) {
-            $query->byCategory($filters['category']);
-        }
-
-        if (!empty($filters['author'])) {
-            $query->byAuthor($filters['author']);
-        }
-
-        if (!empty($filters['from']) && !empty($filters['to'])) {
-            $query->publishedBetween($filters['from'], $filters['to']);
-        }
-
-        if (!empty($filters['language'])) {
-            $query->where('language', $filters['language']);
-        }
-
-        return $query->latest('published_at')->paginate($perPage);
+        return $this->model->query();
     }
 
     public function deleteOlderThan(int $days): int
